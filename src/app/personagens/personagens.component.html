@@ -1,0 +1,193 @@
+<div class="toolbar">
+  <div class="logo">
+    <img width="120" src="../assets/images/starwars-logo.jpg"/>
+  </div>
+</div>
+<div class="container">
+  <div class="container pb-4">
+    <div class="row">
+      <div class="col-3 mt-4 pt-2 mr-2" align="right">
+        <select class="form-control" id="pesquisa" name="pesquisa" [(ngModel)]="pesquisa">
+          <option *ngFor="let pesquisa of search" [value]="pesquisa.id">{{pesquisa.name}}</option>
+        </select>
+      </div>
+      <div class="col-1 mt-4 pt-2 mr-2">
+        <button class="btn btn-primary" (click)="listar(this.pesquisa)">Pesquisar</button>
+      </div>
+  </div>
+  <div class="quant-dep container">
+    <p> Quantidade: <strong>{{quantidade}}</strong></p>
+  </div>
+  <div class="container">
+    <table class="table table-dark container-fluid table-responsive-md">
+      <thead *ngIf="table == 'people'">
+        <tr align="center">
+          <th scope="col">Nome</th>
+          <th scope="col">Nascimento</th>
+          <th scope="col">Gênero</th>
+          <th scope="col">Altura</th>
+          <th scope="col">Peso</th>
+          <th scope="col">Cor dos Olhos</th>
+          <th scope="col">Cor do Cabelo</th>
+          <th scope="col">Cor da Pele</th>
+          <th scope="col">Criado</th>
+          <th scope="col">Detalhes</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'people'">
+        <tr *ngFor="let item of dados| slice: (page-1) * pageSize : page * pageSize" align="center">
+          <th scope="row">{{ item.name }}</th>
+          <th>{{  item.birth_year }}</th>
+          <td>{{  item.gender }}</td>
+          <td>{{  item.height }}</td>
+          <td>{{  item.mass }}</td>
+          <td>{{  item.eye_color  }}</td>
+          <td>{{  item.hair_color }}</td>
+          <td>{{  item.skin_color }}</td>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+          <th scope="row">
+            <div class="text-center">
+           <i id="detalhes" class="fas fa-search pointer" (click)="openmodal(item.url)"></i>
+           </div></th>
+        </tr>
+      </tbody>
+      <thead *ngIf="table == 'planets'">
+        <tr align="center">
+          <th scope="col">Nome</th>
+          <th scope="col">População</th>
+          <th scope="col">Terreno</th>
+          <th scope="col">Clima</th>
+          <th scope="col">Diametro</th>
+          <th scope="col">Gravidade</th>
+          <th scope="col">Periodo Orbital</th>
+          <th scope="col">Periodo Rotacional</th>
+          <th scope="col">Criado</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'planets'">
+        <tr *ngFor="let item of dados| slice: (page-1) * pageSize : page * pageSize" align="center">
+          <th scope="row">{{ item.name }}</th>
+          <th>{{  item.population }}</th>
+          <td>{{  item.terrain }}</td>
+          <td>{{  item.climate }}</td>
+          <td>{{  item.diameter }}</td>
+          <td>{{  item.gravity }}</td>
+          <td>{{  item.orbital_period  }}</td>
+          <td>{{  item.rotation_period }}</td>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+        </tr>
+      </tbody>
+      <thead *ngIf="table == 'starships'">
+        <tr align="center">
+          <th scope="col">Nome</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Fabricante</th>
+          <th scope="col">Classe</th>
+          <th scope="col">Capacidade de Carga</th>
+          <th scope="col">Consumíveis</th>
+          <th scope="col">Custo</th>
+          <th scope="col">Comprimento</th>
+          <th scope="col">Velocidade</th>
+          <th scope="col">Criado</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'starships'">
+        <tr *ngFor="let item of dados" align="center">
+          <th>{{ item.name }}</th>
+          <td>{{  item.model  }}</td>
+          <td>{{  item.manufacturer }}</td>
+          <td>{{  item.starship_class }}</td>
+          <th>{{  item.cargo_capacity }}</th>
+          <td>{{  item.consumables }}</td>
+          <td>{{  item.cost_in_credits }}</td>
+          <td>{{  item.length }}</td>
+          <td>{{  item.max_atmosphering_speed }}</td>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+        </tr>
+      </tbody>
+      <thead *ngIf="table == 'films'">
+        <tr align="center">
+          <th scope="col">Título</th>
+          <th scope="col">Episodio</th>
+          <th scope="col">Lançamento</th>
+          <th scope="col">Diretor</th>
+          <th scope="col">Produtores</th>
+          <th scope="col">Criado</th>
+          <th scope="col">Abertura</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'films'">
+        <tr *ngFor="let item of dados" align="center">
+          <th>{{ item.title }}</th>
+          <td>{{  item.episode_id  }}</td>
+          <td>{{  item.release_date }}</td>
+          <td>{{  item.director }}</td>
+          <th>{{  item.producer }}</th>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+          <td>{{  item.opening_crawl }}</td>
+        </tr>
+      </tbody>
+      <thead *ngIf="table == 'species'">
+        <tr align="center">
+          <th scope="col">Nome</th>
+          <th scope="col">Lingua</th>
+          <th scope="col">Peso Médio</th>
+          <th scope="col">Média de Vida</th>
+          <th scope="col">Designação</th>
+          <th scope="col">Classificação</th>
+          <th scope="col">Cor dos Olhos</th>
+          <th scope="col">Cor do Cabelo</th>
+          <th scope="col">Criado</th>
+          <th scope="col">Abertura</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'species'">
+        <tr *ngFor="let item of dados" align="center">
+          <th>{{ item.name }}</th>
+          <td>{{  item.language  }}</td>
+          <td>{{  item.average_height  }}</td>
+          <td>{{  item.average_lifespan }}</td>
+          <td>{{  item.designation }}</td>
+          <td>{{  item.classification }}</td>
+          <th>{{  item.average_height }}</th>
+          <td>{{  item.eye_colors }}</td>
+          <th>{{  item.hair_colors }}</th>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+          <td>{{  item.opening_crawl }}</td>
+        </tr>
+      </tbody>
+      <thead *ngIf="table == 'vehicles'">
+        <tr align="center">
+          <th scope="col">Nome</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Fabricante</th>
+          <th scope="col">Passageiros</th>
+          <th scope="col">Capacidade de Carga</th>
+          <th scope="col">Consumíveis</th>
+          <th scope="col">Custo</th>
+          <th scope="col">Comprimento</th>
+          <th scope="col">Velocidade</th>
+          <th scope="col">Criado</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="table == 'vehicles'">
+        <tr *ngFor="let item of dados" align="center">
+          <th>{{ item.name }}</th>
+          <td>{{  item.model  }}</td>
+          <td>{{  item.manufacturer }}</td>
+          <td>{{  item.passengers }}</td>
+          <th>{{  item.cargo_capacity }}</th>
+          <td>{{  item.consumables }}</td>
+          <td>{{  item.cost_in_credits }}</td>
+          <td>{{  item.length }}</td>
+          <td>{{  item.max_atmosphering_speed }}</td>
+          <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container-fluid justify-content-between p-2" *ngIf="quantidade">
+      <ngb-pagination [collectionSize]="quantidade" [(page)]="page" [pageSize]="pageSize">
+      </ngb-pagination>
+    </div>
+  </div>
+</div>

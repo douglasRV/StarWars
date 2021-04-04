@@ -1,0 +1,39 @@
+<div class="modal-header" *ngIf="name">
+  {{ name }} Starships
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div *ngIf="name">
+  <table class="table container-fluid table-responsive-md">
+    <thead class="thead-dark">
+      <tr align="center">
+        <th scope="col">Nome</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Fabricante</th>
+        <th scope="col">Classe</th>
+        <th scope="col">Capacidade de Carga</th>
+        <th scope="col">Consumíveis</th>
+        <th scope="col">Custo</th>
+        <th scope="col">Comprimento</th>
+        <th scope="col">Velocidade</th>
+        <th scope="col">Criado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of starships" align="center">
+        <th>{{ item.name }}</th>
+        <td>{{  item.model  }}</td>
+        <td>{{  item.manufacturer }}</td>
+        <td>{{  item.starship_class }}</td>
+        <th>{{  item.cargo_capacity }}</th>
+        <td>{{  item.consumables }}</td>
+        <td>{{  item.cost_in_credits }}</td>
+        <td>{{  item.length }}</td>
+        <td>{{  item.max_atmosphering_speed }}</td>
+        <td>{{  formatDateDDMMYYYY(item.created)  }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

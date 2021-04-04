@@ -1,0 +1,62 @@
+.data-table {
+  transition: all 0.4s;
+}
+
+.data-table:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.background {
+  color: var(--background) !important;
+}
+.content {
+  width: 100%;
+  padding: 0px 25px;
+  padding-top: 0px;
+  transition: all 0.3s;
+  padding-bottom: 30px;
+}
+
+.btn-primary {
+  background-color: var(--grey);
+  border-color:  var(--dark);
+}
+
+.page-item {
+  z-index: 3;
+  color: #fff;
+  background-color: var(--grey) !important;
+  border-color: var(--grey) !important;
+}
+
+.logo {
+  text-align: center;
+}
+
+.toolbar {
+  height: 80px;
+  align-items: center;
+  background-color: #000000;
+  color: white;
+  font-weight: 600;
+}
+
+.toolbar img {
+  margin: 0 16px;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+}
